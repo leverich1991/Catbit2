@@ -1,0 +1,18 @@
+html,
+body {
+padding:10;
+margin:5;
+}
+body {
+font:16px/2em arial, "Arial", helvetica, arial;
+background-color:#F0F0F0;
+}
+body.new {
+background-color:green;
+}
+#topmenu {
+width: 1500px;
+margin-right:auto;
+margin-left:auto;
+background-color:#4000ff;
+}
