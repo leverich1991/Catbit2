@@ -56,8 +56,8 @@
 
 <!--navbar close--> 
 <h1>Goals</h1>
-<%= form_tag('/sessions') do -%>
-	<%= number_field(:data, :number, in: 1..99999) %>
+<%= form_tag('/sessions/goals') do -%>
+	<%= number_field(:sessions, :number, in: 1..99999) %>
 		<%= radio_button_tag(:input, "Calories") %>
 		<%= label_tag(:input_calories, "Calories") %>
 		<%= radio_button_tag(:input, "Steps") %>
@@ -66,6 +66,7 @@
 		<%= label_tag(:input_distance, "Distance (miles)") %>
 	<div><%= submit_tag 'Submit Goal' %></div>
 <% end -%>
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

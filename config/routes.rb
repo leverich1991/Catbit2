@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get 'sessions/settings'
+  post 'sessions/settings'
   get 'sessions/goals'
+  post 'sessions/goals'
   get 'sessions/calories'
   get 'sessions/steps'
   get 'sessions/distance'

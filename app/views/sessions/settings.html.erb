@@ -57,25 +57,27 @@
 
 <h1>Settings</h1>
 <h2>Name</h2>
-	<%= form_tag('/sessions') do -%>
-	<%= search_field(:user, :name) %>
+	<%= form_tag('/sessions/settings') do -%>
+	<%= search_field(:sessions, :name) %>
 	<div><%= submit_tag 'Name' %></div>
 	<% end -%>
 <h2>Age</h2>
-	<%= form_tag('/sessions') do -%>
-	<%= number_field(:data, :age, in: 1.0..99.0) %>
+	<%= form_tag('/sessions/settings') do -%>
+	<%= number_field(:sessions, :age, in: 1.0..99.0) %>
 	<div><%= submit_tag 'Age' %></div>
 	<% end -%>
 <h2>Height</h2>
-	<%= form_tag('/sessions') do -%>
-	<%= number_field(:data, :height, in: 1.0..99.0, step: 0.1) %>
+	<%= form_tag('/sessions/settings') do -%>
+	<%= number_field(:sessions, :height, in: 1.0..99.0, step: 0.1) %>
 	<div><%= submit_tag 'Height' %></div>
 	<% end -%>
 <h2>Weight</h2>
-	<%= form_tag('/sessions') do -%>
-	<%= number_field(:data, :weight, in: 1.0..999.0, step: 0.1) %>
+	<%= form_tag('/sessions/settings') do -%>
+	<%= number_field(:sessions, :weight, in: 1.0..999.0, step: 0.1) %>
 	<div><%= submit_tag 'Weight' %></div>
 	<% end -%>
+
+<!-- <h1>Settings and Goals TEST</h1> -->
 
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
