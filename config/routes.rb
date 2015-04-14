@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   #match '/auth/failure', :to => 'sessions#failure', via: :get
   #get '/logout', :to => 'sessions#destroy'
 
+  resource :user, path: '/settings', controller: :sessions
+  resource :user, path: '/goals', controller: :sessions
   
   resources :catbit do
 	resources :data

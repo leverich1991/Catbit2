@@ -16,10 +16,22 @@ class SessionsController < ApplicationController
   @client = current_user.fitbit
   @daily_activity = @client.activities_on_date 'today'
   end
+  def change_goals
+    @client = current_user.fitbit
+	@client.create_or_update_daily_goal(@opts)
+	render 'goals'
+  end
+  def points_algorithm
+	if @daily_activity['goals']['steps']
+	@points = (@daily_activity['goals']['steps'] * 0.1)
+	elsif @daily_activity['goals']['distance']
+	@points = (@daily_activity['goals']['distance'] * 10)
+	else
+	@points = (@daily_activity['goals']['caloriesOut'] * 0.1)
+	end
+  end
   
   def main
-	#@user = User.find_or_create_from_auth_hash(auth_hash)
-  #self.current_user = @user
   auth_hash = request.env['omniauth.auth']
  
   # Log him in or sign him up
@@ -30,12 +42,9 @@ class SessionsController < ApplicationController
   
   @client = user.fitbit
   @daily_activity = @client.activities_on_date 'today'
-  #render :text => daily_activity  
   end
   
   def create
-  #@user = User.find_or_create_from_auth_hash(auth_hash)
-  #self.current_user = @user
   auth_hash = request.env['omniauth.auth']
  
   # Log him in or sign him up
@@ -46,16 +55,15 @@ class SessionsController < ApplicationController
   
   @client = user.fitbit
   @daily_activity = @client.activities_on_date 'today'
-  #render :text => daily_activity  
   render 'main'  
   end
-  #def destroy
-  #@session = nil
-  #end
   def current_user
 	User.find_by(id: session[:user_id])
   end
-  
+  def update
+  current_user.update(user_params)
+  render 'settings'
+  end
   def destroy
     session[:user_id] = nil
     render 'new'
@@ -66,9 +74,8 @@ class SessionsController < ApplicationController
   end
 
   protected
-
-  #def auth_hash
-  #  request.env['omniauth.auth']
-  #end
+  def user_params
+    params.require(:user).permit(:name, :age, :height, :weight)
+	end
 end
 

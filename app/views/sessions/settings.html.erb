@@ -30,7 +30,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Brand</a>
+      <a class="navbar-brand" href="#">Catbit</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -46,7 +46,7 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>       
+        <li><%= current_user[:name] %></li>       
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -56,28 +56,26 @@
 <!--navbar close--> 
 
 <h1>Settings</h1>
-<h2>Name</h2>
-	<%= form_tag('/sessions/settings') do -%>
-	<%= search_field(:sessions, :name) %>
-	<div><%= submit_tag 'Name' %></div>
-	<% end -%>
-<h2>Age</h2>
-	<%= form_tag('/sessions/settings') do -%>
-	<%= number_field(:sessions, :age, in: 1.0..99.0) %>
-	<div><%= submit_tag 'Age' %></div>
-	<% end -%>
-<h2>Height</h2>
-	<%= form_tag('/sessions/settings') do -%>
-	<%= number_field(:sessions, :height, in: 1.0..99.0, step: 0.1) %>
-	<div><%= submit_tag 'Height' %></div>
-	<% end -%>
-<h2>Weight</h2>
-	<%= form_tag('/sessions/settings') do -%>
-	<%= number_field(:sessions, :weight, in: 1.0..999.0, step: 0.1) %>
-	<div><%= submit_tag 'Weight' %></div>
-	<% end -%>
+<%= form_for(current_user) do |f| %>
+  <h2>Name</h2>
+  <%= f.text_field(:name) %>
+  <h2>Age</h2>
+  <%= f.number_field(:age, in: 1.0..99.0) %>
+  <h2>Height</h2>
+  <%= f.number_field(:height, in: 1.0..99.0) %>
+  <h2>Weight</h2>
+  <%= f.number_field(:weight, in: 1.0..999.0) %>
+  <%= f.submit 'Save' %>
+<% end %>
 
-<!-- <h1>Settings and Goals TEST</h1> -->
+<h1>Settings and Goals TEST</h1>
+Age:<%= current_user[:age] %>
+<br>
+Height:<%= current_user[:height] %>
+<br>
+Weight:<%= current_user[:weight] %>
+<br>
+BMI:<%= (current_user[:weight] * 703) / (current_user[:height] * current_user[:height]) %> 
 
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
