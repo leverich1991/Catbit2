@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414215913) do
+ActiveRecord::Schema.define(version: 20150418012021) do
 
   create_table "data", force: :cascade do |t|
     t.integer  "user_id"
@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 20150414215913) do
     t.integer  "age"
     t.integer  "height"
     t.integer  "weight"
+    t.string   "input"
+    t.integer  "points"
   end
 
 end

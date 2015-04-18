@@ -16,20 +16,6 @@ class SessionsController < ApplicationController
   @client = current_user.fitbit
   @daily_activity = @client.activities_on_date 'today'
   end
-  def change_goals
-    @client = current_user.fitbit
-	@client.create_or_update_daily_goal(@opts)
-	render 'goals'
-  end
-  def points_algorithm
-	if @daily_activity['goals']['steps']
-	@points = (@daily_activity['goals']['steps'] * 0.1)
-	elsif @daily_activity['goals']['distance']
-	@points = (@daily_activity['goals']['distance'] * 10)
-	else
-	@points = (@daily_activity['goals']['caloriesOut'] * 0.1)
-	end
-  end
   
   def main
   auth_hash = request.env['omniauth.auth']
@@ -55,14 +41,41 @@ class SessionsController < ApplicationController
   
   @client = user.fitbit
   @daily_activity = @client.activities_on_date 'today'
-  render 'main'  
+  render 'main'
+  #redirect_to 'main' Does not work  
   end
+  # Used for Settings page
   def current_user
 	User.find_by(id: session[:user_id])
   end
+  # Used for Goals page
+  def change_goals
+    User.find_by(id: session[:user_id])
+    @client = current_user.fitbit
+	@client.create_or_update_daily_goal(@opts)
+	render 'goals'
+  end
+  # Also used for Goals page
+  def points_algorithm
+	if current_user[:input] = "Calories"
+	current_user[:points] = (@daily_activity['goals']['steps'] * 0.1)
+	elsif current_user[:input] = "Distance"
+	current_user[:points] = (@daily_activity['goals']['distance'] * 10)
+	elsif current_user[:input] = "Steps"
+	current_user[:points] = (@daily_activity['goals']['caloriesOut'] * 0.1)
+	end
+  end
   def update
-  current_user.update(user_params)
-  render 'settings'
+	if current_page?('sessions/settings')
+	#if (params[:action] == 'settings.1')
+	current_user.update(user_params)
+	render 'settings'
+	elsif current_page?('sessions/goals')
+	#elsif (params[:action] == 'goals.1')
+	current_user.update(goal_params)
+	@points_algorithm = current_user[:points]
+	render 'goals'
+	end
   end
   def destroy
     session[:user_id] = nil
@@ -76,6 +89,9 @@ class SessionsController < ApplicationController
   protected
   def user_params
     params.require(:user).permit(:name, :age, :height, :weight)
-	end
+  end
+  def goal_params
+    params.require(:user).permit(:input, :points)
+  end
 end
 

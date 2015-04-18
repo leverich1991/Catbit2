@@ -1,9 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  text: MyText
-
-two:
-  title: MyString
-  text: MyText
+points_algorithm:
+	ten_calories: 1
+	ten_steps: 1
+	0.1distance: 10
+	$5 off $50+ purchase: 10000
+	$10 off any purchase: 20000
+	Up to $50 in free groceries: 50000
+	

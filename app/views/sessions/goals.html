@@ -39,8 +39,8 @@
       <ul class="nav navbar-nav">
         <li role="presentation" ><%= link_to "Home", sessions_main_path %></li>
         <li role="presentation" ><%= link_to "Settings", sessions_settings_path %></li>
-        <li role="presentation" ><%= link_to "Goals", sessions_goals_path %></li>
-        <li role="presentation" class="active" ><%= link_to "Calories", sessions_calories_path %></li>
+        <li role="presentation" class="active" ><%= link_to "Goals", sessions_goals_path %></li>
+        <li role="presentation" ><%= link_to "Calories", sessions_calories_path %></li>
         <li role="presentation" ><%= link_to "Steps", sessions_steps_path  %></li>
         <li role="presentation" ><%= link_to "Distance", sessions_distance_path %></li>
         <li role="presentation" ><%= link_to "Log out", logout_path %></li>      
@@ -55,25 +55,20 @@
 </nav>
 
 <!--navbar close--> 
-<h1>Calories</h1>
-	<div id="calories" style="height: 400px;"></div>
-	<script>
-	new Morris.Line({
-	element: 'calories',
-	data: [
-    { day: '1', value: 444 },
-    { day: '2', value: 1800 },
-    { day: '3', value: 1200 },
-    { day: '4', value: 500 },
-    { day: '5', value: 700 },
-	{ day: '6', value: 486 },
-	{ day: '7', value: <%= @daily_activity['summary']['caloriesOut'] %> }
-  ],
-  xkey: 'day',
-  parseTime: false,
-  ykeys: ['value'],
-  labels: ['Value']
-});</script>
+<h1>Goals</h1>
+<%= form_for(current_user) do |f| %>
+	<%= f.number_field(:number, in: 1..99999) %>
+		<%= radio_button_tag(:input, "Calories") %>
+		<%= label_tag(:input, "Calories") %>
+		<%= radio_button_tag(:input, "Steps") %>
+		<%= label_tag(:input, "Steps") %>
+		<%= radio_button_tag(:input, "Distance") %>
+		<%= label_tag(:input, "Distance (miles)") %>
+	<div><%= f.submit 'Create Goal' %></div>
+<% end -%>
+<h2>List of Goals TEST</h2>
+
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

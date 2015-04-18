@@ -31,7 +31,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Catbit</a>
+      <a><img width="75%"src="/catbitIcon.png" alt="catbit logo" /></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -87,7 +87,7 @@
 <%= @daily_activity['goals'] %>
 <h2></h2>
 <h1>You Earned:</h1>
-<h2><%= @daily_activity['goals']['activeMinutes'] %> Points</h2>
+<h2><%= current_user[:points] %> Points</h2>
 
 
 <!-- Latest compiled and minified JavaScript -->
