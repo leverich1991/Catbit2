@@ -18,7 +18,14 @@ Rails.application.routes.draw do
   #match '/auth/failure', :to => 'sessions#failure', via: :get
   #get '/logout', :to => 'sessions#destroy'
 
+<<<<<<< HEAD
   resources :user do
+=======
+  resource :user, path: '/settings', controller: :sessions
+  resource :user, path: '/goals', controller: :sessions
+  
+  resources :catbit do
+>>>>>>> 132f0daa8d45be5da53747a5285edd5920599855
 	resources :data
 	end
   # The priority is based upon order of creation: first created -> highest priority.

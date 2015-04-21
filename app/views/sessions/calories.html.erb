@@ -31,7 +31,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+<<<<<<< HEAD
       <a class="navbar-brand" href="#"></a>
+=======
+      <a><img width="75%"src="/catbitIcon.png" alt="catbit logo" /></a>
+>>>>>>> 132f0daa8d45be5da53747a5285edd5920599855
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -47,7 +51,11 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+<<<<<<< HEAD
         <li><a href="">Team7</a></li>       
+=======
+        <li><%= current_user[:name] %></li>       
+>>>>>>> 132f0daa8d45be5da53747a5285edd5920599855
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -56,11 +64,12 @@
 
 <!--navbar close--> 
 <h1>Calories</h1>
-	<div id="calories" style="height: 200px;"></div>
+	<div id="calories" style="height: 400px;"></div>
 	<script>
 	new Morris.Line({
 	element: 'calories',
 	data: [
+<<<<<<< HEAD
     { day: '0', value: <%= Datum.find_by(date: 0)[:calories] %> },
     { day: '1', value: <%= Datum.find_by(date: 1)[:calories] %> },
     { day: '2', value: <%= Datum.find_by(date: 2)[:calories] %> },
@@ -68,12 +77,20 @@
     { day: '4', value: <%= Datum.find_by(date: 4)[:calories] %> },
     { day: '5', value: <%= Datum.find_by(date: 5)[:calories] %> },
     { day: '6', value: <%= Datum.find_by(date: 6)[:calories] %> }
+=======
+    { day: '1', value: 444 },
+    { day: '2', value: 1800 },
+    { day: '3', value: 1200 },
+    { day: '4', value: 500 },
+    { day: '5', value: 700 },
+	{ day: '6', value: 486 },
+	{ day: '7', value: <%= @daily_activity['summary']['caloriesOut'] %> }
+>>>>>>> 132f0daa8d45be5da53747a5285edd5920599855
   ],
   xkey: 'day',
   parseTime: false,
   ykeys: ['value'],
-  labels: ['Value'],
-  lineColors: ['red']
+  labels: ['Value']
 });</script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>

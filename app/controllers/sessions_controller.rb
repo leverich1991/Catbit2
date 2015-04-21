@@ -17,14 +17,26 @@ class SessionsController < ApplicationController
   @daily_activity = @client.activities_on_date 'today'
   end
   
+<<<<<<< HEAD
   def main  
   @client = current_user.fitbit
   @daily_activity = @client.activities_on_date 'today' 
+=======
+  def main
+  auth_hash = request.env['omniauth.auth']
+ 
+  # Log him in or sign him up
+  user = User.find_or_create(auth_hash)
+ 
+  # Create the session
+  session[:user_id] = user.id
+  
+  @client = user.fitbit
+  @daily_activity = @client.activities_on_date 'today'
+>>>>>>> 132f0daa8d45be5da53747a5285edd5920599855
   end
   
   def create
-  #@user = User.find_or_create_from_auth_hash(auth_hash)
-  #self.current_user = @user
   auth_hash = request.env['omniauth.auth']
  
   # Log him in or sign him up
@@ -36,18 +48,49 @@ class SessionsController < ApplicationController
   @client = user.fitbit
   Datum.delete_all
   @daily_activity = @client.activities_on_date 'today'
+<<<<<<< HEAD
   retreive_week_data
   
   #render :text => Datum.find_by(date: 0)[:steps]
   render 'main'  
+=======
+  render 'main'
+  #redirect_to 'main' Does not work  
+>>>>>>> 132f0daa8d45be5da53747a5285edd5920599855
   end
-  #def destroy
-  #@session = nil
-  #end
+  # Used for Settings page
   def current_user
 	User.find_by(id: session[:user_id])
   end
-  
+  # Used for Goals page
+  def change_goals
+    User.find_by(id: session[:user_id])
+    @client = current_user.fitbit
+	@client.create_or_update_daily_goal(@opts)
+	render 'goals'
+  end
+  # Also used for Goals page
+  def points_algorithm
+	if current_user[:input] = "Calories"
+	current_user[:points] = (@daily_activity['goals']['steps'] * 0.1)
+	elsif current_user[:input] = "Distance"
+	current_user[:points] = (@daily_activity['goals']['distance'] * 10)
+	elsif current_user[:input] = "Steps"
+	current_user[:points] = (@daily_activity['goals']['caloriesOut'] * 0.1)
+	end
+  end
+  def update
+	if current_page?('sessions/settings')
+	#if (params[:action] == 'settings.1')
+	current_user.update(user_params)
+	render 'settings'
+	elsif current_page?('sessions/goals')
+	#elsif (params[:action] == 'goals.1')
+	current_user.update(goal_params)
+	@points_algorithm = current_user[:points]
+	render 'goals'
+	end
+  end
   def destroy
     session[:user_id] = nil
     render 'new'
@@ -58,6 +101,7 @@ class SessionsController < ApplicationController
   end
 
   protected
+<<<<<<< HEAD
 
   def retreive_week_data
     @daily_activity = @client.activities_on_date 'today'
@@ -85,5 +129,13 @@ class SessionsController < ApplicationController
   #def auth_hash
   #  request.env['omniauth.auth']
   #end
+=======
+  def user_params
+    params.require(:user).permit(:name, :age, :height, :weight)
+  end
+  def goal_params
+    params.require(:user).permit(:input, :points)
+  end
+>>>>>>> 132f0daa8d45be5da53747a5285edd5920599855
 end
 

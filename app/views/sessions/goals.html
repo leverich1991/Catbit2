@@ -39,9 +39,9 @@
       <ul class="nav navbar-nav">
         <li role="presentation" ><%= link_to "Home", sessions_main_path %></li>
         <li role="presentation" ><%= link_to "Settings", sessions_settings_path %></li>
-        <li role="presentation" ><%= link_to "Goals", sessions_goals_path %></li>
+        <li role="presentation" class="active" ><%= link_to "Goals", sessions_goals_path %></li>
         <li role="presentation" ><%= link_to "Calories", sessions_calories_path %></li>
-        <li role="presentation" class="active" ><%= link_to "Steps", sessions_steps_path  %></li>
+        <li role="presentation" ><%= link_to "Steps", sessions_steps_path  %></li>
         <li role="presentation" ><%= link_to "Distance", sessions_distance_path %></li>
         <li role="presentation" ><%= link_to "Log out", logout_path %></li>      
         </li>
@@ -55,25 +55,20 @@
 </nav>
 
 <!--navbar close--> 
-<h1>Steps</h1>
-<div id="steps" style="height: 400px;"></div>
-	<script>
-	new Morris.Line({
-	element: 'steps',
-	data: [
-    { day: '0', value: <%= Datum.find_by(date: 0)[:steps] %> },
-    { day: '1', value: <%= Datum.find_by(date: 1)[:steps] %> },
-    { day: '2', value: <%= Datum.find_by(date: 2)[:steps] %> },
-    { day: '3', value: <%= Datum.find_by(date: 3)[:steps] %> },
-    { day: '4', value: <%= Datum.find_by(date: 4)[:steps] %> },
-    { day: '5', value: <%= Datum.find_by(date: 5)[:steps] %> },
-    { day: '6', value: <%= Datum.find_by(date: 6)[:steps] %> }
-  ],
-  xkey: 'day',
-  parseTime: false,
-  ykeys: ['value'],
-  labels: ['Value']
-});</script>
+<h1>Goals</h1>
+<%= form_for(current_user) do |f| %>
+	<%= f.number_field(:number, in: 1..99999) %>
+		<%= radio_button_tag(:input, "Calories") %>
+		<%= label_tag(:input, "Calories") %>
+		<%= radio_button_tag(:input, "Steps") %>
+		<%= label_tag(:input, "Steps") %>
+		<%= radio_button_tag(:input, "Distance") %>
+		<%= label_tag(:input, "Distance (miles)") %>
+	<div><%= f.submit 'Create Goal' %></div>
+<% end -%>
+<h2>List of Goals TEST</h2>
+
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
