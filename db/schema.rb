@@ -14,15 +14,19 @@
 ActiveRecord::Schema.define(version: 20150324221325) do
 
   create_table "data", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "index"
+    t.integer  "date"
     t.integer  "steps"
+    t.integer  "steps_goal"
     t.float    "distance"
+    t.float    "distance_goal"
     t.integer  "calories"
-    t.integer  "points"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "calories_goal"
+    t.integer  "article_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
+
+  add_index "data", ["article_id"], name: "index_data_on_article_id"
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",         default: 0, null: false

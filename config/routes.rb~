@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
   get 'sessions/settings'
+  post 'sessions/settings'
   get 'sessions/goals'
+  post 'sessions/goals'
   get 'sessions/calories'
   get 'sessions/steps'
   get 'sessions/distance'
   get 'sessions/main'
-  get 'graphchart/index'
   match ':controller(/:action(/:id))', :via => :get
+  
   get 'login' => 'sessions#new'
-  post 'sessions' => 'sessions#create'
+  #post 'sessions' => 'sessions#create'
   get 'logout' => 'sessions#destroy'
 
   #get   '/login', :to => 'sessions#new', :as => :login

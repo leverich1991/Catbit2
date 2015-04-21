@@ -3,7 +3,7 @@ class CreateData < ActiveRecord::Migration
 
     create_table :data do |t|
 
-      t.integer :date
+      t.datetime :date
       t.integer :steps
       t.integer :steps_goal
       t.float :distance

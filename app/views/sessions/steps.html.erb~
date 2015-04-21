@@ -37,11 +37,11 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li role="presentation" class="active" ><%= link_to "Home", sessions_main_path %></li>
+        <li role="presentation" ><%= link_to "Home", sessions_main_path %></li>
         <li role="presentation" ><%= link_to "Settings", sessions_settings_path %></li>
         <li role="presentation" ><%= link_to "Goals", sessions_goals_path %></li>
         <li role="presentation" ><%= link_to "Calories", sessions_calories_path %></li>
-        <li role="presentation" ><%= link_to "Steps", sessions_steps_path  %></li>
+        <li role="presentation" class="active" ><%= link_to "Steps", sessions_steps_path  %></li>
         <li role="presentation" ><%= link_to "Distance", sessions_distance_path %></li>
         <li role="presentation" ><%= link_to "Log out", logout_path %></li>      
         </li>
@@ -55,45 +55,26 @@
 </nav>
 
 <!--navbar close--> 
-
-<div class="container">
-<%= render :text => Datum.find_by(date: 0)[:steps] %>
-</br>
-<%= render :text => Datum.find_by(date: 0)[:steps_goal] %>
-<center><h1>Steps</h1></center>
-<div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow= "<%= Datum.find_by(date: 0)[:steps] %>" aria-valuemin="0" aria-valuemax= "<%= Datum.find_by(date: 0)[:steps_goal] %>" style="width: <%= ((Datum.find_by(date: 0)[:steps].to_f / @daily_activity['goals']['steps'].to_f)*100).round(2) %>%; min-width: 3em;">
-  <%= ((Datum.find_by(date: 0)[:steps].to_f / Datum.find_by(date: 0)[:steps_goal].to_f)*100).round(2) %>%
-  </div>
-</div>
-<br><br>
-<%= render :text => Datum.find_by(date: 0)[:distance] %>
-</br>
-<%= render :text => Datum.find_by(date: 0)[:distance_goal] %>
-<center><h1>Distance</h1></center>
-
-<div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow= "<%= Datum.find_by(date: 0)[:distance] %>" aria-valuemin="0" aria-valuemax= "<%= Datum.find_by(date: 0)[:distance_goal] %>" style="width: <%= ((Datum.find_by(date: 0)[:distance].to_f / Datum.find_by(date: 0)[:distance_goal].to_f)*100).round(2) %>%; min-width: 3em">
-  <%= ((Datum.find_by(date: 0)[:distance].to_f / Datum.find_by(date: 0)[:distance_goal].to_f)*100).round(2) %>%
-  </div>
-</div>
-<br><br>
-
-<%= render :text => Datum.find_by(date: 0)[:calories] %>
-</br>
-<%= render :text => Datum.find_by(date: 0)[:calories_goal] %>
-<center><h1>Calories</h1></center>
-
-<div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow= "<%= Datum.find_by(date: 0)[:calories] %>" aria-valuemin="0" aria-valuemax= "<%= Datum.find_by(date: 0)[:calories_goal] %>" style="width: <%= ((Datum.find_by(date: 0)[:calories].to_f / Datum.find_by(date: 0)[:calories_goal].to_f)*100).round(2) %>%; min-width: 3em">
-  <%= ((Datum.find_by(date: 0)[:calories].to_f / Datum.find_by(date: 0)[:calories_goal].to_f)*100).round(2) %>%
-  </div>
-</div>
-<br><br>
-<h1>You Earned:</h1>
-<h2><%= @daily_activity['goals']['activeMinutes'] %> Points</h2>
-
-
+<h1>Steps</h1>
+<div id="steps" style="height: 200px;"></div>
+	<script>
+	new Morris.Line({
+	element: 'steps',
+	data: [
+    { day: '1', value: <%= Datum.find_by(date: 0)[:steps] %> },
+    { day: '2', value: <%= Datum.find_by(date: 1)[:steps] %> },
+    { day: '3', value: 1500 },
+    { day: '4', value: 550 },
+    { day: '5', value: 500 },
+	{ day: '6', value: 238 },
+	{ day: '7', value: 883 }
+  ],
+  xkey: 'day',
+  parseTime: false,
+  ykeys: ['value'],
+  labels: ['Value'],
+  lineColors: ['green']
+});</script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -102,6 +83,3 @@
     <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
-
-
-

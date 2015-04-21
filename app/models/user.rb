@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 #has_secure_password #should have built-in authentication
 #validates :name, presence: true, length: { minimum: 8 }
 #validates :password, :format => {:with => /A(?=.*[a-zA-Z])(?=.*[0-9]).{8,}/z, message: "must be at least 8 characters and include one number and one letter."}
+  has_many :datas
 
  validates :oauth_token, :oauth_secret, :uid, :name, :presence =>true
 

@@ -37,12 +37,12 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li role="presentation" class="active" ><%= link_to "Home", sessions_main_path %></li>
+        <li role="presentation" ><%= link_to "Home", sessions_main_path %></li>
         <li role="presentation" ><%= link_to "Settings", sessions_settings_path %></li>
         <li role="presentation" ><%= link_to "Goals", sessions_goals_path %></li>
         <li role="presentation" ><%= link_to "Calories", sessions_calories_path %></li>
         <li role="presentation" ><%= link_to "Steps", sessions_steps_path  %></li>
-        <li role="presentation" ><%= link_to "Distance", sessions_distance_path %></li>
+        <li role="presentation" class="active"><%= link_to "Distance", sessions_distance_path %></li>
         <li role="presentation" ><%= link_to "Log out", logout_path %></li>      
         </li>
       </ul>
@@ -55,45 +55,26 @@
 </nav>
 
 <!--navbar close--> 
-
-<div class="container">
-<%= render :text => Datum.find_by(date: 0)[:steps] %>
-</br>
-<%= render :text => Datum.find_by(date: 0)[:steps_goal] %>
-<center><h1>Steps</h1></center>
-<div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow= "<%= Datum.find_by(date: 0)[:steps] %>" aria-valuemin="0" aria-valuemax= "<%= Datum.find_by(date: 0)[:steps_goal] %>" style="width: <%= ((Datum.find_by(date: 0)[:steps].to_f / @daily_activity['goals']['steps'].to_f)*100).round(2) %>%; min-width: 3em;">
-  <%= ((Datum.find_by(date: 0)[:steps].to_f / Datum.find_by(date: 0)[:steps_goal].to_f)*100).round(2) %>%
-  </div>
-</div>
-<br><br>
-<%= render :text => Datum.find_by(date: 0)[:distance] %>
-</br>
-<%= render :text => Datum.find_by(date: 0)[:distance_goal] %>
-<center><h1>Distance</h1></center>
-
-<div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow= "<%= Datum.find_by(date: 0)[:distance] %>" aria-valuemin="0" aria-valuemax= "<%= Datum.find_by(date: 0)[:distance_goal] %>" style="width: <%= ((Datum.find_by(date: 0)[:distance].to_f / Datum.find_by(date: 0)[:distance_goal].to_f)*100).round(2) %>%; min-width: 3em">
-  <%= ((Datum.find_by(date: 0)[:distance].to_f / Datum.find_by(date: 0)[:distance_goal].to_f)*100).round(2) %>%
-  </div>
-</div>
-<br><br>
-
-<%= render :text => Datum.find_by(date: 0)[:calories] %>
-</br>
-<%= render :text => Datum.find_by(date: 0)[:calories_goal] %>
-<center><h1>Calories</h1></center>
-
-<div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow= "<%= Datum.find_by(date: 0)[:calories] %>" aria-valuemin="0" aria-valuemax= "<%= Datum.find_by(date: 0)[:calories_goal] %>" style="width: <%= ((Datum.find_by(date: 0)[:calories].to_f / Datum.find_by(date: 0)[:calories_goal].to_f)*100).round(2) %>%; min-width: 3em">
-  <%= ((Datum.find_by(date: 0)[:calories].to_f / Datum.find_by(date: 0)[:calories_goal].to_f)*100).round(2) %>%
-  </div>
-</div>
-<br><br>
-<h1>You Earned:</h1>
-<h2><%= @daily_activity['goals']['activeMinutes'] %> Points</h2>
-
-
+<h1>Distance</h1>
+	<div id="distance" style="height: 200px;"></div>
+	<script>
+	new Morris.Line({
+	element: 'distance',
+	data: [
+    { day: '0', value: <%= Datum.find_by(date: 0)[:distance] %> },
+    { day: '1', value: <%= Datum.find_by(date: 1)[:distance] %> },
+    { day: '2', value: <%= Datum.find_by(date: 2)[:distance] %> },
+    { day: '3', value: <%= Datum.find_by(date: 3)[:distance] %> },
+    { day: '4', value: <%= Datum.find_by(date: 4)[:distance] %> },
+    { day: '5', value: <%= Datum.find_by(date: 5)[:distance] %> },
+    { day: '6', value: <%= Datum.find_by(date: 6)[:distance] %> }
+  ],
+  xkey: 'day',
+  parseTime: false,
+  ykeys: ['value'],
+  labels: ['Value'],
+  lineColors: ['purple']
+});</script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -102,6 +83,3 @@
     <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
-
-
-
